@@ -1,0 +1,37 @@
+.type id = [replicaID: number, lamport: number]
+.type payload = [id: id, val: number]
+
+// OP
+.decl assign(payload: payload)
+
+// Example
+assign([[1,0], 1]).
+assign([[1,1], 0]).
+assign([[2,1], 2]).
+assign([[2,0], 3]).
+assign([[3,0], 5]).
+assign([[3,1], 6]).
+assign([[1,2], 3]).
+assign([[2,2], 4]).
+
+// Register value
+.decl laterID(id1: id, id2: id)
+laterID([R1,L1],[R2,L2]) :-
+  assign([[R1,L1],_]),
+  assign([[R2,L2],_]),
+  R1 < R2.
+laterID([R1,L1],[R2,L2]) :-
+  assign([[R1,L1],_]),
+  assign([[R2,L2],_]),
+  R1 = R2,
+  L1 < L2.
+
+.decl lastID(id: id)
+lastID(T) :- assign([T,_]), ! laterID(T,_).
+
+// Current value of the assignment
+.decl query(a: number)
+query(-1) :- ! lastID(_).
+query(N)  :- lastID(T), assign([T,N]).
+
+.output query(IO=stdout)

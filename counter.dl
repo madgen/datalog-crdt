@@ -1,0 +1,27 @@
+.type id = number
+
+// OPs
+.decl inc(id: id)
+.decl dec(id: id)
+
+// Example
+inc(0).
+dec(6).
+inc(2).
+inc(5).
+dec(4).
+inc(3).
+inc(1).
+inc(7).
+
+// Change
+.decl change(ID: number, delta: number)
+change(ID,1) :- inc(ID).
+change(ID,-1) :- dec(ID).
+
+// Counter value
+.decl query(ctr: number)
+query(0) :- ! change(_,_).
+query(Y) :- Y = sum X : change(_,X).
+
+.output query(IO=stdout)
