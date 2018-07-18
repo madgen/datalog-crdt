@@ -12,3 +12,9 @@ So far...
  - Two-Phase set
  - Last-Writer-Wins set
  - Positive-Negative set
+
+## Observed-Remove set
+
+So this set is tricky/pointless to implement in Datalog as the crucial bit of
+the algorithm is to remove only the locally observed elements (made unique with
+an identifier).
