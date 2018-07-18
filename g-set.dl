@@ -1,0 +1,16 @@
+// OP
+.decl add(el: number)
+
+// Example
+add(1).
+add(2).
+add(3).
+add(5).
+add(2).
+add(3).
+
+// Query
+.decl query(VAL: number)
+query(N) :- add(N).
+
+.output query(IO=stdout)

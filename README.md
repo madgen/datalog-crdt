@@ -8,3 +8,4 @@ So far...
  - PN-Counter
  - Last-Writer-Wins register
  - Multi-Value register
+ - Grow-Only set
