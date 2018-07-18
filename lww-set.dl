@@ -1,0 +1,20 @@
+// Timestamp
+.type id = number
+
+// OP
+.decl add(ID: id, EL: number)
+.decl remove(ID: id, EL: number)
+
+// Example
+add(0,10).
+remove(1,10).
+add(2,20).
+remove(2,20).
+add(3,30).
+remove(2,30).
+
+// Query
+.decl query(EL: number)
+query(N) :- add(_,N), T1 = max T : add(T,N), T2 = max T : remove(T,N), T1 >= T2.
+
+.output query(IO=stdout)

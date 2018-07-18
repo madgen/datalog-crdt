@@ -10,3 +10,4 @@ So far...
  - Multi-Value register
  - Grow-Only set
  - Two-Phase set
+ - Last-Writer-Wins set
