@@ -1,0 +1,18 @@
+// OPs
+.decl add(EL: number)
+.decl remove(EL: number)
+
+// Example
+add(1).
+remove(1).
+add(3).
+add(1).
+add(3).
+remove(2).
+add(5).
+
+// Query
+.decl query(EL: number)
+query(EL) :- add(EL), ! remove(EL).
+
+.output query(IO=stdout)

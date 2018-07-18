@@ -9,3 +9,4 @@ So far...
  - Last-Writer-Wins register
  - Multi-Value register
  - Grow-Only set
+ - Two-Phase set
