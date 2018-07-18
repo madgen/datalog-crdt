@@ -1,0 +1,38 @@
+// Identifier for three replicas
+.type id = [id1: number, id2: number, id3: number]
+.type payload = [id: id, val: number]
+
+// OP
+.decl assign(payload: payload)
+
+// Example
+assign([[0,0,1],3]).
+assign([[1,1,0],2]).
+assign([[0,2,1],5]).
+assign([[0,2,2],7]).
+assign([[2,2,1],6]).
+assign([[2,2,1],6]).
+assign([[3,1,0],5]).
+assign([[0,2,1],5]).
+
+// Register value(s)
+.decl laterID(id1: id, id2: id)
+laterID(ID1,ID2) :-
+  assign([ID1,_]),
+  assign([ID2,_]),
+  ID1 = [A1,B1,C1],
+  ID2 = [A2,B2,C2],
+  A1 <= A2,
+  B1 <= B2,
+  C1 <= C2,
+  ! (A1 = A2, B1 = B2, C1 = C2).
+
+.decl lastID(id: id)
+lastID(ID1) :- assign([ID1,_]), ! laterID(ID1,_).
+
+// Query
+.decl query(val: number)
+query(-1) :- ! lastID(_).
+query(N)  :- lastID(ID), assign([ID,N]).
+
+.output query(IO=stdout)
