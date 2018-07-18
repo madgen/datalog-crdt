@@ -5,7 +5,7 @@ Datalog ([Souffle](http://souffle-lang.org) syntax).
 
 So far...
 
- - PN-Counter
+ - Positive-Negative counter
  - Last-Writer-Wins register
  - Multi-Value register
  - Grow-Only set
