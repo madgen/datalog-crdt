@@ -1,0 +1,33 @@
+// Timestamp
+.type id = [ REPLICA_ID: number, LAMPORT: number ]
+
+// OP
+.decl add(ID: id, EL: number)
+.decl remove(ID: id, EL: number)
+
+// Example
+remove([2,7],10).
+remove([2,1],10).
+add([1,1],10).
+add([3,1],20).
+remove([2,2],20).
+remove([3,2],30).
+remove([3,3],30).
+add([3,4],30).
+add([3,5],30).
+add([3,6],30).
+remove([2,3],20).
+add([2,4],20).
+add([2,5],20).
+
+// Query
+.decl query(EL: number)
+// NB. We do not ground based on remove as if there are no adds, removes can
+// only make the count negative.
+query(N) :-
+  add(_,N),
+  AC = count : add(_,N),
+  RC = count : remove(_,N),
+  AC - RC > 0.
+
+.output query(IO=stdout)
