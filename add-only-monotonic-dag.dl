@@ -1,0 +1,17 @@
+.type id = symbol
+
+// Example
+.decl addBetween(U: id,V: id,W: id)
+addBetween("|-","alpha","-|").
+addBetween("|-","beta","delta").
+addBetween("|-","delta","-|").
+addBetween("delta","epsilon","-|").
+addBetween("|-","gamma","delta").
+
+// Query
+.decl edge(U: id, V: id)
+edge("|-","-|").
+edge(U,V) :- edge(U,W), addBetween(U,V,W).
+edge(V,W) :- edge(U,W), addBetween(U,V,W).
+
+.output edge(IO=stdout)

@@ -13,6 +13,7 @@ So far...
  - Last-Writer-Wins set
  - Positive-Negative set
  - Two-Phase-Two-Phase graph
+ - Add-Only-Monotonic graph
 
 ## Observed-Remove set
 
