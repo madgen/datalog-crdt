@@ -14,6 +14,7 @@ So far...
  - Positive-Negative set
  - Two-Phase-Two-Phase graph
  - Add-Only-Monotonic graph
+ - Add-Remove partial order
 
 ## Observed-Remove set
 

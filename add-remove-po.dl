@@ -1,0 +1,39 @@
+.type id = symbol
+
+// OPs
+.decl addBetween(U: id, V: id, W: id)
+.decl removeVertex(V: id)
+
+// Example
+addBetween("|-","a","-|").
+addBetween("|-","b","-|").
+addBetween("a","c","-|").
+removeVertex("d").
+removeVertex("e").
+addBetween("c","e","-|").
+addBetween("e","f","-|").
+addBetween("a","d","-|").
+removeVertex("a").
+
+// Internal added vertex and edges sets
+.decl vertexAdded(V: id)
+.decl edgeAdded(U: id, V: id)
+
+vertexAdded("|-").
+vertexAdded("-|").
+vertexAdded(V) :- addBetween(U,V,W), vertexAdded(U), vertexAdded(W).
+
+edgeAdded("|-","-|").
+edgeAdded(U,V) :- addBetween(U,V,W), vertexAdded(U), vertexAdded(W).
+edgeAdded(V,W) :- addBetween(U,V,W), vertexAdded(U), vertexAdded(W).
+edgeAdded(U,W) :- edgeAdded(U,V), edgeAdded(V,W).
+
+// Queries
+.decl vertex(V: id)
+.decl edge(U: id, V: id)
+
+vertex(V) :- vertexAdded(V), ! removeVertex(V).
+edge(U,V) :- vertex(U), vertex(V), edgeAdded(U,V).
+
+.output vertex(IO=stdout)
+.output edge(IO=stdout)
