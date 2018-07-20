@@ -17,11 +17,14 @@ removeVertex("a").
 
 // Internal added vertex and edges sets
 .decl vertexAdded(V: id)
+.decl vertexRemoved(V: id)
 .decl edgeAdded(U: id, V: id)
 
 vertexAdded("|-").
 vertexAdded("-|").
 vertexAdded(V) :- addBetween(U,V,W), vertexAdded(U), vertexAdded(W).
+
+vertexRemoved(V) :- removeVertex(V), V != "|-", V != "-|".
 
 edgeAdded("|-","-|").
 edgeAdded(U,V) :- addBetween(U,V,W), vertexAdded(U), vertexAdded(W).
@@ -32,7 +35,7 @@ edgeAdded(U,W) :- edgeAdded(U,V), edgeAdded(V,W).
 .decl vertex(V: id)
 .decl edge(U: id, V: id)
 
-vertex(V) :- vertexAdded(V), ! removeVertex(V).
+vertex(V) :- vertexAdded(V), ! vertexRemoved(V).
 edge(U,V) :- vertex(U), vertex(V), edgeAdded(U,V).
 
 .output vertex(IO=stdout)
