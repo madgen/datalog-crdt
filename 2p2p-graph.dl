@@ -28,11 +28,11 @@ removeEdge(U,V) :- addEdge(U,V), removeVertex(U).
 removeEdge(V,U) :- addEdge(V,U), removeVertex(U).
 
 // Query
-.decl edge(U: id, V: id)
-edge(U,V) :- addEdge(U,V), ! removeEdge(U,V).
-
 .decl vertex(U: id)
 vertex(U) :- addVertex(U), ! removeVertex(U).
 
-.output edge(IO=stdout)
+.decl edge(U: id, V: id)
+edge(U,V) :- vertex(U), vertex(V), addEdge(U,V), ! removeEdge(U,V).
+
 .output vertex(IO=stdout)
+.output edge(IO=stdout)
