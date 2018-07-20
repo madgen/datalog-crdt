@@ -14,4 +14,9 @@ edge("|-","-|").
 edge(U,V) :- edge(U,W), addBetween(U,V,W).
 edge(V,W) :- edge(U,W), addBetween(U,V,W).
 
+.decl vertex(V: id)
+vertex(V) :- edge(V,_).
+vertex(V) :- edge(_,V).
+
 .output edge(IO=stdout)
+.output vertex(IO=stdout)
